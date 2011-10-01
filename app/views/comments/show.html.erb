@@ -1,0 +1,37 @@
+ 1 <p id="notice"><%= notice %></p>
+ 2 
+ 3 <p>
+ 4   <b>Post:</b>
+ 5   <%= @comment.post_id %>
+ 6 </p>
+ 7 
+ 8 <p>
+ 9   <b>Body:</b>
+10   <%= @comment.body %>
+11 </p>
+12 
+13 
+14 <%= link_to 'Edit', edit_comment_path(@comment) %> |
+15 <%= link_to 'Back', comments_path %>
+
+<h2>Comments</h2>
+<div id="comments">
+	<% @post.comments.each do |comment| %> 
+		<%= div_for comment do %>
+			<p> 
+			<strong>
+				Posted <%= time_ago_in_words(comment.created_at) %> 
+			</strong><br />
+			<%= h(comment.body) %>
+			</p>
+		<% end %>
+	<% end %>
+</div>
+
+<%= form for [@post, Comment.new] do |f| %>
+	<p>
+     	<%= f.label :body, "New Comment" %><br />
+		<%= f.text_area :body %> 
+	</p>
+	<p><%= f.submit "Add Comment" %></p>
+<% end %>
